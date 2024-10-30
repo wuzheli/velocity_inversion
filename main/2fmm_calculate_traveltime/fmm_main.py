@@ -2,7 +2,7 @@
 import numpy as np
 import heapq
 import matplotlib.pyplot as plt
-
+import pandas as pd
 # 初始化理论走时模型
 def initialize_travel_time(shape, source):
 
@@ -10,7 +10,7 @@ def initialize_travel_time(shape, source):
     travel_time = np.full(shape, np.inf)
     travel_time[source] = 0     # 将震源位置走时设为0
     return travel_time
-
+ 
 
 # fmm计算理论走时
 def fmm(velocity, source):
@@ -48,17 +48,38 @@ def fmm(velocity, source):
 
     return travel_time
 
+## 主函数
 if __name__ == '__main__':
-    vel_model=np.load(file='vel_model_initial1.npy')  # 10*12*26       (z,y,x)
+    # 加载初始速度模型
+    vel_model = np.load(file=r'C:\Users\建设村彭于晏\Desktop\python程序\velocity_inversion\main\2fmm_calculate_traveltime\initial_model_5200.npy')  #       (z,y,x)
+    # 加载传感器（校正到网格点上）
+    grid_sensor = pd.read_excel(r'C:\Users\建设村彭于晏\Desktop\python程序\velocity_inversion\grid_sensor.xlsx', header = None)
 
     np.set_printoptions(threshold=np.inf)  # 将数组完整输出
 
-    print(vel_model)
+    print("变化之前：")
+    print(grid_sensor)
 
-    source=(0,0,0)   # 定义震源位置              (z,y,x)
+    subtraction_values = [5600, 800, 850]
 
-    travel_time = fmm(vel_model, source)
+    grid_sensor = grid_sensor - subtraction_values
+    print("减之后：")
+    print(grid_sensor)
 
-    np.save('travel_time1', arr=travel_time)   # save travel_time
+    scale_factors = [150, 150, 100]
 
-    print(travel_time)
+    grid_sensor = grid_sensor / scale_factors
+    print("缩小之后：")
+    print(grid_sensor)
+
+    print(vel_model)   
+    print(grid_sensor.iloc[:][1])
+
+
+    for i in range(1):
+        source = np.array(grid_sensor.iloc[i][:]).astype(int)
+        print(source)
+        travel_time = fmm(vel_model, source)
+        print(travel_time)
+
+    # np.save('travel_time_initial_5200', arr=travel_time)   # save travel_time

@@ -2,7 +2,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 if __name__ == '__main__':
     # 创建随机填充的3D矩阵
-    time_model = np.load(file='travel_time1.npy').T # 矩阵转置成(x,y,z)
+    time_model = np.load(r'C:\Users\建设村彭于晏\Desktop\python程序\velocity_inversion\main\2fmm_calculate_traveltime\travel_time1.npy').T # 矩阵转置成(x,y,z)
 
     fig = plt.figure()
     # 获取3D坐标轴

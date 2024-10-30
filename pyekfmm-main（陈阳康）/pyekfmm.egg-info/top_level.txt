@@ -1,3 +1,0 @@
-eikonalc
-eikonalvtic
-pyekfmm

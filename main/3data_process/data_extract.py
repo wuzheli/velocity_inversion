@@ -1,10 +1,10 @@
 import pandas as pd
 import numpy as np
-import mysql.connector
 
 if __name__ == '__main__':
     # 打开文件，对数据进行处理，划分事件
-    file = open("data.txt")
+    file = open(r'C:\Users\建设村彭于晏\Desktop\python程序\velocity_inversion\main\3data_process\data.txt')
+
     data = file.readlines()
     index = 0
     ans = []
