@@ -1,8 +1,0 @@
-numpy
-scipy
-matplotlib
-
-[docs]
-sphinx
-ipython
-runipy
